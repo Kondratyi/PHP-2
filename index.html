@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+
+<div id="product"></div>
+
+<script>
+    let answer = (async () => {
+        let response = await fetch('http://localhost:63342/4/db.php?_ijt=v688029lci3b7fehsq2hoa4jjf');
+
+        if (response.ok) {
+            let json = await response.json();
+            let place = document.getElementById('product');
+            let template = `<div>Наименование: ${json.name}</div>
+                            <div>Стоимость: ${json.price}</div>
+                            <div>Остаток на складе: ${json.quantity}</div>
+                            `;
+            place.insertAdjacentHTML('beforeend', template);
+        } else {
+            alert("Ошибка HTTP: " + response.status);
+        }
+    })();
+
+</script>
+
+</body>
+</html>
